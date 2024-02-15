@@ -1,0 +1,6 @@
+var int i = 72*54
+if not i == 35;
+    print['i is not `35`']
+else;
+    print['i is `35`']
+

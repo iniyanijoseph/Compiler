@@ -1,0 +1,85 @@
+Algorithm
+_________
+#for each line in file
+# - Read a character.
+# - If the character is non-token
+# - - If the token is leaf in trie
+# - - - save token as `Identifier ASTNode` if not a statement
+# - - - - If peek() is "[", then it is a function, (+, -, *, /, %, or another function)
+# - - - else `Statement AST Node` if in statement table
+# - - - else compile error
+# - If the character is a digit
+# - - Continue to read tokens until peek() gives a non-digit character, and save as an `Expression ASTNode`
+ - Use Pratt Parsing to construct AST
+ - Evaluate AST into LLVM
+
+
+Structures Required:
+A Trie to save and query tokens
+An ASTNode Struct which contains a value and a set of children and a resolution pattern
+- `Expression` inherits ASTNode and contains 0 children. It's evaluation is a constant
+- `Statement` inherits ASTNode (if, while, for, etc)
+- `Identifier` inherits ASTNode and contains 0 or more children.
+- - If the node has no children, it acts as an identifier. Its evaluation is defined by the token a function call to add(child, child1), sub(child0, child1), etc.
+A table of identifiers
+A table of statements
+
+Goals
+_______
+null safety
+memory management
+simplicity
+
+Words and Features
+________
+for (for each)
+while (while)
+if (if)
+
+and (&&)
+or (||)
+xor (^)
+not (!)
+
+a in b (checks table b for value a)
+
+a is b (checks if a is of type b)
+a as b (cast a to b)
+
++
+-
+*
+/
+=
+
+true (0)
+false (1)
+
+. (used for floating point numbers or for )
+
+'a `b` c' (string where everything between ` and the next immediate ` are evaluated.)
+
+; (ends a statement and guarantees another \t in the next line)
+
+\comment here\ (compiler skips over content between \ and next immediate \)
+
+fun void a(); (creates a function returning void named a)
+var int a = b (creates a variable of type int of a variable named a)
+const int a = b (creates a variable of type int of a variable named a)
+
+int
+real
+char
+str
+
+vec[a, b, c, d, ...] (Array)
+sort[i, j, f[x]] (sorts vector such that elements in [i, j) under the comparison function f[x])
+sub[i, j] (gets range [i, j) of list)
+add[e]
+add[i, e]
+remove[i]
+vec[i] (gets ith element of map)
+
+a = io[stdio] \\reads a single line of input from source
+a.readuntil['\s'] \\read until a regular expression pattern match
+
