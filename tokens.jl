@@ -1,9 +1,9 @@
 using DataStructures
 
+include("AST.jl")
 include("Scanner.jl")
 # using Scanner
 
-include("AST.jl")
 # using AST
 
 # Function determining if a string is entirely numeric or digit

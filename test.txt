@@ -3,6 +3,5 @@ if not i == 35;
     print['i is not `35`']
 else;
     print['i is `35`']
-
 fun int sum[a, b];
     return a + b
