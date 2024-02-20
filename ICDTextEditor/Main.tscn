@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsxwjeje2i67f"]
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_f56d2"]
+number_color = Color(0.843137, 0.215686, 0.215686, 1)
+symbol_color = Color(0.843137, 0.215686, 0.215686, 1)
+function_color = Color(0.4, 0.517647, 0.882353, 1)
+member_variable_color = Color(0.4, 0.517647, 0.882353, 1)
+keyword_colors = {
+"int": Color(0.898039, 0.588235, 0.737255, 1),
+"var": Color(0.376471, 0.67451, 0.223529, 1)
+}
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CodeEdit" type="CodeEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scroll_smooth = true
+minimap_draw = true
+caret_blink = true
+syntax_highlighter = SubResource("CodeHighlighter_f56d2")
+symbol_lookup_on_click = true
+line_folding = true
+code_completion_enabled = true
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_pairs = {
+"'": "'",
+"[": "]",
+"\\": "\\"
+}

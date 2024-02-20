@@ -1,5 +1,3 @@
-# module Scanner
-
 function readLineToAST(tokens::Trie, file)::Vector{ASTNode}
   line::String = readline(file)
   ASTLine::Array{ASTNode} = []
@@ -8,12 +6,12 @@ function readLineToAST(tokens::Trie, file)::Vector{ASTNode}
     subtrieAtCurrent = subtrie(tokens, current*ch)
 
     #If no new existing keyword can be formed using the current as prefix
-    if subtrieAtCurrent == nothing
+    if subtrieAtCurrent === nothing
       if isDigit(current) #If current is seemingly forming a digit
         if isdigit(ch) #If we can continue forming a number with ch, continue forming
           current *= ch
         else # If we cannot form a number with ch stop forming and save digit
-          push!(ASTLine, ASTNode(current, ASTExpression, []))
+          push!(ASTLine, ASTNode(current, EXPRESSION, []))
           current = string(ch)
         end
       elseif isLetter(current) # If we are trying to form a new identifier
@@ -23,7 +21,7 @@ function readLineToAST(tokens::Trie, file)::Vector{ASTNode}
           if haskey(tokens, current) # If a prefix cannot be formed because it already is a keyword
             push!(ASTLine, ASTNode(current, tokens[current], []))
           else # If a prefix cannot be formed because it is a new identifier, add it to the token trie
-            tokens[current] = ASTIdentifier
+            tokens[current] = IDENTIFIER
             push!(ASTLine, ASTNode(current, tokens[current], []))
           end
           # Start a new string
@@ -43,15 +41,17 @@ function readLineToAST(tokens::Trie, file)::Vector{ASTNode}
     if index == sizeof(line)
       if current != " "
         if isDigit(current)
-          push!(ASTLine, ASTNode(current, ASTExpression, []))
+          push!(ASTLine, ASTNode(current, EXPRESSION, []))
         else
-          push!(ASTLine, ASTNode(current, tokens[current], []))
+          if haskey(tokens, current) # If a prefix cannot be formed because it already is a keyword
+            push!(ASTLine, ASTNode(current, tokens[current], []))
+          else # If a prefix cannot be formed because it is a new identifier, add it to the token trie
+            tokens[current] = IDENTIFIER
+            push!(ASTLine, ASTNode(current, tokens[current], []))
+          end
         end
       end
     end
   end
   return ASTLine
 end
-
-
-# end
