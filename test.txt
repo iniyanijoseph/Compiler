@@ -1,4 +1,2 @@
-var int i = 72*54
-if not i == 35
-    print['i is not `35`']
-	
+ 623+53*4+3
+ 54

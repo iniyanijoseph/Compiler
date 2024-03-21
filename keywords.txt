@@ -1,5 +1,5 @@
-for:FOR
-while:WHILE
+for
+while
 if:IF
 else:ELSE
 fun:FUNCTION
